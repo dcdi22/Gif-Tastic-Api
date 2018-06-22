@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GifApi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div id="buttonsDiv">
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-8" id="gifs-appear-here">
+            </div>
+            <div class="form-group col-4">
+                <label for="search-input">Add a Sweet</label>
+                <input class="form-control" type="search" value="" id="searchBar">
+                <button type="submit" id="submit" class="btn btn-primary mt-2">Submit</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="assets/javascript/script.js"></script>
+    <script>
+        $(function () {
+            var buttonsDiv = $("#buttonsDiv");
+            var gifsHere = $("#gifs-appear-here");
+            var searchBar = $("#searchBar");
+            var submit = $("#submit");
+
+            var buttons = ["Donuts", "Dark Chocolate", "Gummy Worms", "Cakes", "Dessert Pie", "Peanutbutter Cookies", "Icecream", "Macarons" ];
+
+            for (var i = 0; i < buttons.length; i++) {
+                var button = $("<button>");
+                button.attr("data-name", buttons[i]);
+                button.text(buttons[i]);
+                buttonsDiv.append(button);
+            }
+
+            $("button").on("click", function () {
+                var sweets = $(this).attr("data-name");
+                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + sweets +
+                    "&api_key=ezL53Dd8XRSFHcc4MKPI0gyNSVbbaZQW&limit=10";
+
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function (response) {
+                    console.log(response);
+
+                    var results = response.data;
+
+
+                    for (var j = 0; j < results.length; j++) {
+                        var gifDiv = $("<div>");
+                        var p = $("<p>").text("Rating: " + results[j].rating);
+                        var gif = $("<img>").attr("src", results[j].images.fixed_height_still.url); //might need to get rid of _still
+                        gif.attr("data-still", results[j].images.fixed_height_still.url);
+                        gif.attr("data-animate", results[j].images.fixed_height.url);
+                        gif.attr("data-state", "still");
+                        gif.addClass("gif");
+                        gifDiv.append(p);
+                        gifDiv.append(gif);
+                        gifsHere.prepend(gifDiv);
+                    }
+                    $(".gif").on("click", function () {
+                        var state = $(this).attr("data-state");
+                        console.log(state);
+
+                        if (state == "still") {
+                            $(this).attr("src", $(this).attr("data-animate"));
+                            $(this).attr("data-state", "animate");
+                        } else {
+                            $(this).attr("src", $(this).attr("data-still"));
+                            $(this).attr("data-state", "still");
+                        }
+                    })
+                });
+            });
+
+
+
+
+
+
+        });
+    </script>
+</body>
+
+</html>
