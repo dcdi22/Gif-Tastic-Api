@@ -1,0 +1,30 @@
+body {
+    /* background-image: url("../images/pink_rice.png"); */
+    background: #DAE2F8;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #D6A4A4, #DAE2F8);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #D6A4A4, #DAE2F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Spirax', cursive;
+}
+
+.card {
+    /* background-image: url("../images/pink_rice.png"); */
+    background: #DAE2F8;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #D6A4A4, #DAE2F8);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #D6A4A4, #DAE2F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.fas {
+    color: #B66D71;
+}
+
+.fas:hover {
+    color: rgb(160, 96, 99);
+}
